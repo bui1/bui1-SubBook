@@ -1,12 +1,14 @@
 package com.example.android.bui1_subbook;
 
-import java.util.Date;
+import java.io.Serializable;
 
 /**
  * Created by MonicaB on 2018-01-20.
  */
 
-public class Subscription {
+@SuppressWarnings("serial")
+
+public class Subscription implements Serializable{
     private String name;        // Name of the subscription
     private String date;        // Subscription start date
     private double charge;      // Monthly charge in $CAD for subscription
@@ -43,6 +45,7 @@ public class Subscription {
 
     // Set subscription name
     public void setName(String name) {
+
         this.name = name;
     }
 
