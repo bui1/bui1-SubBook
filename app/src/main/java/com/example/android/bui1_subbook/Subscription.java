@@ -16,8 +16,8 @@ public class Subscription implements Serializable{
 
 
     // Constructor in case of no comment
-    public Subscription(String date, String name, double charge) {
-        this(date, name, charge, "");
+    public Subscription(String name, String date, double charge) {
+        this(name, date, charge, "");
     }
 
     // Constructor in case a comment is provided
@@ -71,7 +71,10 @@ public class Subscription implements Serializable{
 
     @Override
     public String toString() {
-        return this.name + ". " + this.date + " $" + this.charge + " " + this.comment;
+        return "Name: " + this.name + ".\nDate: " +
+                this.date + "\nCharge: $" +
+                this.charge + "\nComment: " +
+                this.comment;
     }
 
 }
