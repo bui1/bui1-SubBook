@@ -17,7 +17,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".addSub" />
-        <activity android:name=".detailsActivity" />
         <activity android:name=".editActivity"></activity>
     </application>
 

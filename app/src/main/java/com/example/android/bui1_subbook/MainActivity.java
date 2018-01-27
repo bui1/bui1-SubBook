@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
                 index = position;
                 String item = ((TextView)view).getText().toString();
 //                Toast.makeText(getBaseContext(), item, Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(MainActivity.this, detailsActivity.class);
+                Intent intent = new Intent(MainActivity.this, editActivity.class);
                 intent.putExtra("item", item);
                 startActivityForResult(intent,INIT_CODE_2);
             }
@@ -95,6 +95,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent intent){
             super.onActivityResult(requestCode, resultCode, intent);
 
+
             if (requestCode == INIT_CODE && resultCode == RESULT_OK) {
                 // Passing Subscription object to another activity
                 //https://stackoverflow.com/questions/2736389/how-to-pass-an-object-from-one-activity-to-another-on-android
@@ -106,21 +107,22 @@ public class MainActivity extends AppCompatActivity {
 
             }
             else if (requestCode == INIT_CODE_2 && resultCode == RESULT_OK){
-                adapter.remove(adapter.getItem(index));
-                saveInFile();
-                adapter.notifyDataSetChanged();
+                String code = intent.getStringExtra("code");
+                if (code.equals("0")){
+                    adapter.remove(adapter.getItem(index));
+                    saveInFile();
+                    adapter.notifyDataSetChanged();
+                }
+                else if (code.equals("1")){
+                    Subscription newSub = (Subscription)intent.getSerializableExtra("editedthing");
+                    items.set(index,newSub);
+                    saveInFile();
+                    adapter.notifyDataSetChanged();
+                }
             }
-
-//            else if (requestCode == EDIT_CODE && resultCode == RESULT_OK){
-//                continue;
-//            }
-
 
 
     }
-
-
-    //TODO: EDIT ENTRIES
 
 
 

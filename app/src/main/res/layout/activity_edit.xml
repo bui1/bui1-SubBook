@@ -10,22 +10,20 @@
         android:layout_width="368dp"
         android:layout_height="495dp"
         android:orientation="vertical"
-        tools:layout_editor_absoluteX="8dp"
-        tools:layout_editor_absoluteY="8dp"
-        >
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="28dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Name"
-            android:textSize="25sp"
-            />
+            android:textSize="25sp" />
 
         <EditText
             android:id="@+id/NameEdit"
-            android:layout_height="wrap_content"
             android:layout_width="match_parent"
-            android:inputType="text"/>
+            android:layout_height="wrap_content"
+            android:inputType="text" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -63,16 +61,21 @@
 
         <EditText
             android:id="@+id/CommentEdit"
-            android:layout_height="wrap_content"
             android:layout_width="match_parent"
-            android:inputType="text"/>
+            android:layout_height="wrap_content"
+            android:inputType="text" />
 
         <Button
             android:id="@+id/change"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Change Entry"
-            />
+            android:text="Change Entry" />
+
+        <Button
+            android:id="@+id/delete"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Delete" />
 
     </LinearLayout>
 
