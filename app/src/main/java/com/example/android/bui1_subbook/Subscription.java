@@ -71,9 +71,9 @@ public class Subscription implements Serializable{
 
     @Override
     public String toString() {
-        return "Name: " + this.name + ".\nDate: " +
-                this.date + "\nCharge: $" +
-                this.charge + "\nComment: " +
+        return this.name + ",\n" +
+                this.date + ",\n" +
+                this.charge + ",\n" +
                 this.comment;
     }
 

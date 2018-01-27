@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 public class detailsActivity extends AppCompatActivity {
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,7 +34,10 @@ public class detailsActivity extends AppCompatActivity {
         editbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //TODO: figure out way to grab edit object's data
+                Intent x = new Intent(detailsActivity.this, editActivity.class);
+                x.putExtra("edit",intent.getStringExtra("item"));
+                startActivityForResult(x,MainActivity.EDIT_CODE);
+                finish();
             }
         });
 
