@@ -71,10 +71,17 @@ public class addSub extends AppCompatActivity {
                 }
 
                 String commentValue = comment.getText().toString().trim(); // grab comment from edit text input
-                Subscription newSub = new Subscription(nameValue,dateValue,chargeValue,commentValue);
-                intent.putExtra("newSub", newSub); // store new object for the next activity
-                setResult(RESULT_OK,intent);
-                finish();
+                if (commentValue.length() == 0 || commentValue.length() <= 30){ // if comment is blank or is correctly inputted
+                    Subscription newSub = new Subscription(nameValue,dateValue,chargeValue,commentValue);
+                    intent.putExtra("newSub", newSub); // store new object for the next activity
+                    setResult(RESULT_OK,intent);
+                    finish();
+                }
+                else{
+                    Toast.makeText(getApplicationContext(),"Comment is too long, needs to be less than 30 characters",Toast.LENGTH_SHORT)
+                            .show();
+                    return;
+                }
 
             }
         });
