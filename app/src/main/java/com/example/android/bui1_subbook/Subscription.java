@@ -79,7 +79,7 @@ public class Subscription implements Serializable{
     // String method to print the object out
     @Override
     public String toString() {
-        if ((this.comment).equals("")) {
+        if ((this.comment).equals("")) { // if there's a blank comment don't print the extra comma before the comment text
             return this.name + "," +
                     this.date + "," +
                     this.charge;

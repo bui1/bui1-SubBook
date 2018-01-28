@@ -16,7 +16,8 @@ import java.util.Date;
 
 public class editActivity extends AppCompatActivity {
     // Purpose: Let the user see the details of the subscription object in a cleaner slate. They have an option to delete or edit the object.
-    // Design: It was better to have directly have the option to edit so the user doesn't have to switch between even more activities for this.
+    // Design: It was better to have directly have the option to edit so the user doesn't have to switch between even more activities for this,
+    // then can click the button to confirm their option.
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
