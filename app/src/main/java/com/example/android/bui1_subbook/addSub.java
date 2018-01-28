@@ -34,7 +34,7 @@ public class addSub extends AppCompatActivity {
 
         addBtn.setOnClickListener(new View.OnClickListener(){
             public void onClick (View v) {
-                String nameValue = name.getText().toString().trim();
+                String nameValue = name.getText().toString().trim(); // grab name from edit text input
                 if (nameValue.length() > 20 || nameValue.length() < 1){ // validating name input length
                     Toast.makeText(getApplicationContext(),"Name must be between 1 and 20 characters ",Toast.LENGTH_SHORT)
                             .show();
@@ -44,7 +44,7 @@ public class addSub extends AppCompatActivity {
                 // 2018-01-21
                 // https://stackoverflow.com/questions/9277747/android-simpledateformat-how-to-use-it
                 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd"); // date format we want
-                String dateValue = date.getText().toString().trim();
+                String dateValue = date.getText().toString().trim(); // grab date from edit text input
                 dateFormat.setLenient(false);
 
                 try{ // validating user input date based on format we want
@@ -57,28 +57,22 @@ public class addSub extends AppCompatActivity {
                 }
 
 
-                Double chargeValue = Double.parseDouble(charge.getText().toString().trim()); // convert string input to double output
-                if (chargeValue < 0){
+                String inputCharge = charge.getText().toString().trim(); // grab charge from edit text input
+                if (inputCharge.length() == 0){ // check if user did input a charge value
+                    Toast.makeText(getApplicationContext(),"Charge value cannot be blank ",Toast.LENGTH_SHORT)
+                            .show();
+                    return;
+                }
+                Double chargeValue = Double.parseDouble(inputCharge); // convert string input to double output
+                if (chargeValue < 0){ // input validate charge value
                     Toast.makeText(getApplicationContext(),"Charge value should be positive ",Toast.LENGTH_SHORT)
                             .show();
                     return;
                 }
-//                try{ // validating the charge given by user
-//                    if (chargeValue < 0){
-//                        Toast.makeText(getApplicationContext(),"Charge value should be positive ",Toast.LENGTH_SHORT)
-//                                .show();
-//                        return;
-//                    }
-//                }
-//                catch(Exception e){
-//                    Toast.makeText(getApplicationContext(),"Charge value should be positive ",Toast.LENGTH_SHORT)
-//                            .show();
-//                    return;
-//                }
 
-                String commentValue = comment.getText().toString().trim();
+                String commentValue = comment.getText().toString().trim(); // grab comment from edit text input
                 Subscription newSub = new Subscription(nameValue,dateValue,chargeValue,commentValue);
-                intent.putExtra("newSub", newSub);
+                intent.putExtra("newSub", newSub); // store new object for the next activity
                 setResult(RESULT_OK,intent);
                 finish();
 

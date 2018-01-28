@@ -54,7 +54,7 @@ public class editActivity extends AppCompatActivity {
         }
         while (false); // only need to check once if the user inputted a comment or not
 
-        deleteBtn.setOnClickListener(new View.OnClickListener() {
+        deleteBtn.setOnClickListener(new View.OnClickListener() { // if user click delete button
             @Override
             public void onClick(View view) {
                 intent.putExtra("deletion",intent.getStringExtra("item"));
@@ -64,9 +64,9 @@ public class editActivity extends AppCompatActivity {
             }
         });
 
-        changeBtn.setOnClickListener(new View.OnClickListener(){
+        changeBtn.setOnClickListener(new View.OnClickListener(){ // if user click the change subscription button
             public void onClick (View v) {
-                String nameValue = name.getText().toString().trim();
+                String nameValue = name.getText().toString().trim(); // grab name from edit text input
                 if (nameValue.length() > 20 || nameValue.length() < 1){  // validate the name input
                     Toast.makeText(getApplicationContext(),"Name must be between 1 and 20 characters ",Toast.LENGTH_SHORT)
                             .show();
@@ -77,7 +77,7 @@ public class editActivity extends AppCompatActivity {
                 // 2018-01-21
                 // https://stackoverflow.com/questions/9277747/android-simpledateformat-how-to-use-it
                 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd"); // date format we want
-                String dateValue = date.getText().toString().trim();
+                String dateValue = date.getText().toString().trim(); // grab date from edit text input
                 dateFormat.setLenient(false);
 
                 try{ // validating user input date based on format we want
@@ -89,36 +89,26 @@ public class editActivity extends AppCompatActivity {
                     return;
                 }
 
-                Double chargeValue = Double.parseDouble(charge.getText().toString().trim()); // convert string input to double
+                String inputCharge = charge.getText().toString().trim(); // grab charge from edit text input
+                if (inputCharge.length() == 0){ // check if user did input a charge value
+                    Toast.makeText(getApplicationContext(),"Charge value cannot be blank ",Toast.LENGTH_SHORT)
+                            .show();
+                    return;
+                }
+                Double chargeValue = Double.parseDouble(inputCharge); // convert string input to double output
+                if (chargeValue < 0){ // input validate charge value
+                    Toast.makeText(getApplicationContext(),"Charge value should be positive ",Toast.LENGTH_SHORT)
+                            .show();
+                    return;
+                }
 
-                if (chargeValue < 0){ // validating charge input
-                        Toast.makeText(getApplicationContext(),"Charge value should be positive ",Toast.LENGTH_SHORT)
-                                .show();
-                        return;
-                    }
-
-//                try{
-//                    if (chargeValue < 0){
-//                        Toast.makeText(getApplicationContext(),"Charge value should be positive ",Toast.LENGTH_SHORT)
-//                                .show();
-//                        return;
-//                    }
-//                }
-//                catch(Exception e){
-//                    Toast.makeText(getApplicationContext(),"Charge value should be positive ",Toast.LENGTH_SHORT)
-//                            .show();
-//                    return;
-//                }
-
-                String commentValue = comment.getText().toString().trim();
+                String commentValue = comment.getText().toString().trim(); // grab comment from edit text input
 
                 Subscription newSub = new Subscription(nameValue,dateValue,chargeValue,commentValue);
-                //Intent intent = new Intent(editActivity.this , MainActivity.class);
 
                 intent.putExtra("code","1"); // let main activity know we edited the object
-                intent.putExtra("editedSub", newSub); // grab contents of new object
+                intent.putExtra("editedSub", newSub); // store contents of new object for next activity
                 setResult(RESULT_OK,intent);
-                //startActivityForResult(intent,MainActivity.EDIT_CODE);
                 finish();
 
             }

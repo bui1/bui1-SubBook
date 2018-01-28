@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        Button addBtn = (Button)findViewById(R.id.goToAdd);
+        Button addBtn = (Button)findViewById(R.id.goToAdd); // define add button
         addBtn.setOnClickListener(new View.OnClickListener(){ // if clicked, go to add a new subscription activity
             public void onClick (View v) {
                 Intent intent = new Intent(MainActivity.this, addSub.class);
@@ -108,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
             else if (requestCode == INIT_CODE_2 && resultCode == RESULT_OK){ // if we are viewing details of subscription
                 String code = intent.getStringExtra("code");
                 if (code.equals("0")){ // delete the subscription
-                    adapter.remove(adapter.getItem(index));
+                    adapter.remove(adapter.getItem(index)); // get item that was clicked on and remove it
                     saveInFile();// save contents to file
                     adapter.notifyDataSetChanged(); // update the screen
                 }
