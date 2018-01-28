@@ -5,22 +5,29 @@ import java.io.Serializable;
 /**
  * Created by MonicaB on 2018-01-20.
  */
-
-@SuppressWarnings("serial")
+// Implemented serializable interface
+// https://stackoverflow.com/questions/2736389/how-to-pass-an-object-from-one-activity-to-another-on-android
+// 2018-01-26
 
 public class Subscription implements Serializable{
+    // Class: Template for the subscription object
+    // Design: It implements serializable so we can pass this object between activities
+    // The design itself creates a Subscription based on if the user inputs a comment or not.
+    // Usual getter and setter methods mostly used for debugging.
+    // Issues: Formatting Subscription string so it is more intuitive for the user to see which parts are name,date,charge, and comment.
+
     private String name;        // Name of the subscription
     private String date;        // Subscription start date
     private double charge;      // Monthly charge in $CAD for subscription
     private String comment;     // (Optional) comment about the subscription
 
 
-    // Constructor in case of no comment
+    // Constructor where user does not provide comment
     public Subscription(String name, String date, double charge) {
         this(name, date, charge, "");
     }
 
-    // Constructor in case a comment is provided
+    // Constructor if all parameters are used
     public Subscription(String name, String date, double charge, String comment) {
         this.name = name;
         this.date = date;
@@ -69,12 +76,21 @@ public class Subscription implements Serializable{
         this.comment = comment;
     }
 
+    // String method to print the object out
     @Override
     public String toString() {
-        return this.name + "," +
-                this.date + "," +
-                this.charge + "," +
-                this.comment;
+        if ((this.comment).equals("")) {
+            return this.name + "," +
+                    this.date + "," +
+                    this.charge;
+        } else {
+            return this.name + "," +
+                    this.date + "," +
+                    this.charge+ "," +
+                    this.comment;
+        }
     }
+
+
 
 }

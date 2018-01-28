@@ -15,20 +15,22 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class editActivity extends AppCompatActivity {
+    // Purpose: Let the user see the details of the subscription object in a cleaner slate. They have an option to delete or edit the object.
+    // Design: It was better to have directly have the option to edit so the user doesn't have to switch between even more activities for this.
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit);
 
-        final Intent intent = this.getIntent();
-        String thing = intent.getStringExtra("item");
+        final Intent intent = this.getIntent(); // get the intent that called this activity
+        String sub = intent.getStringExtra("item"); // grab the subscription object the user clicked on previously
 
 
-        String[] parts = thing.split(",");
+        String[] parts = sub.split(","); // split the string into the subscription's attributes
 
 
-
+        // define our views and buttons on screen
         final EditText name = (EditText) findViewById(R.id.NameEdit);
         final EditText charge = (EditText) findViewById(R.id.ChargeEdit);
         final EditText date = (EditText) findViewById(R.id.DateEdit);
@@ -36,11 +38,12 @@ public class editActivity extends AppCompatActivity {
         Button changeBtn = (Button)findViewById(R.id.change);
         Button deleteBtn = (Button) findViewById(R.id.delete);
 
+        // place appropriate subscription contents int their respective text views
         name.setText(parts[0]);
         date.setText(parts[1]);
         charge.setText(parts[2]);
 
-        do {
+        do { // set the comment field to what the user inputted previously otherwise leave it blank
             try {
                 comment.setText(parts[3]);
                 break;
@@ -49,14 +52,13 @@ public class editActivity extends AppCompatActivity {
 
             }
         }
-        while (false);
-
+        while (false); // only need to check once if the user inputted a comment or not
 
         deleteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 intent.putExtra("deletion",intent.getStringExtra("item"));
-                intent.putExtra("code","0");
+                intent.putExtra("code","0"); // letting the main activity know we want to delete object
                 setResult(RESULT_OK,intent);
                 finish();
             }
@@ -65,17 +67,20 @@ public class editActivity extends AppCompatActivity {
         changeBtn.setOnClickListener(new View.OnClickListener(){
             public void onClick (View v) {
                 String nameValue = name.getText().toString().trim();
-                if (nameValue.length() > 20 || nameValue.length() < 1){
+                if (nameValue.length() > 20 || nameValue.length() < 1){  // validate the name input
                     Toast.makeText(getApplicationContext(),"Name must be between 1 and 20 characters ",Toast.LENGTH_SHORT)
                             .show();
                     return;
                 }
 
 
-                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                // 2018-01-21
+                // https://stackoverflow.com/questions/9277747/android-simpledateformat-how-to-use-it
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd"); // date format we want
                 String dateValue = date.getText().toString().trim();
                 dateFormat.setLenient(false);
-                try{
+
+                try{ // validating user input date based on format we want
                     dateFormat.parse(dateValue);
                 }
                 catch(Exception e){
@@ -84,28 +89,34 @@ public class editActivity extends AppCompatActivity {
                     return;
                 }
 
-                Double chargeValue = Double.parseDouble(charge.getText().toString().trim());
+                Double chargeValue = Double.parseDouble(charge.getText().toString().trim()); // convert string input to double
 
-                try{
-                    if (chargeValue < 0){
+                if (chargeValue < 0){ // validating charge input
                         Toast.makeText(getApplicationContext(),"Charge value should be positive ",Toast.LENGTH_SHORT)
                                 .show();
                         return;
                     }
-                }
-                catch(Exception e){
-                    Toast.makeText(getApplicationContext(),"Charge value should be positive ",Toast.LENGTH_SHORT)
-                            .show();
-                    return;
-                }
+
+//                try{
+//                    if (chargeValue < 0){
+//                        Toast.makeText(getApplicationContext(),"Charge value should be positive ",Toast.LENGTH_SHORT)
+//                                .show();
+//                        return;
+//                    }
+//                }
+//                catch(Exception e){
+//                    Toast.makeText(getApplicationContext(),"Charge value should be positive ",Toast.LENGTH_SHORT)
+//                            .show();
+//                    return;
+//                }
 
                 String commentValue = comment.getText().toString().trim();
 
                 Subscription newSub = new Subscription(nameValue,dateValue,chargeValue,commentValue);
                 //Intent intent = new Intent(editActivity.this , MainActivity.class);
 
-                intent.putExtra("code","1");
-                intent.putExtra("editedthing", newSub);
+                intent.putExtra("code","1"); // let main activity know we edited the object
+                intent.putExtra("editedSub", newSub); // grab contents of new object
                 setResult(RESULT_OK,intent);
                 //startActivityForResult(intent,MainActivity.EDIT_CODE);
                 finish();
