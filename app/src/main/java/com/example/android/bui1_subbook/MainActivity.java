@@ -39,12 +39,18 @@ public class MainActivity extends AppCompatActivity {
     private ListView mainView; // main screen view
     private ArrayAdapter<Subscription> adapter;
 
+    private TextView price; // the view that shows total price
+
     private final int INIT_CODE = 1; // code for moving to addSub activity
     private final int INIT_CODE_2 = 2; // code for moving to editSub activity
 
     private final String FILENAME = "subs.sav"; // file for saving subscriptions to
 
     private int index; // to find the position of which subscription object the user clicked on
+
+    private double totalPrice; // total price variable of all subscriptions
+
+    private String strPrice; // temporary variable that holds the price in string format
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +60,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         mainView = (ListView) findViewById(R.id.sub_list); // define our list view
+
+        price = (TextView)findViewById(R.id.totalprice); // define our text view
 
         mainView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             // if we click on a subscription item, go to the editSub activity so we can view the sub's details
@@ -75,6 +83,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivityForResult(intent,INIT_CODE);
             }
         });
+
     }
 
     @Override
@@ -86,6 +95,18 @@ public class MainActivity extends AppCompatActivity {
         loadFromFile(); // grab any previously saved items
         adapter = new ArrayAdapter<Subscription>(this, android.R.layout.simple_list_item_1, items);
         mainView.setAdapter(adapter);
+        setTotal(); // set total price
+
+    }
+
+    private void setTotal(){
+        // Function that calculates the total price of all the subscription items
+        totalPrice = 0;
+        for (Subscription sub:items){
+            totalPrice = totalPrice + sub.getCharge();
+        }
+        strPrice = "Total Price of all Subscriptions: $" + String.valueOf(totalPrice);
+        price.setText(strPrice); // set textview's content to total price
     }
 
 
@@ -101,22 +122,28 @@ public class MainActivity extends AppCompatActivity {
                 //https://stackoverflow.com/questions/2736389/how-to-pass-an-object-from-one-activity-to-another-on-android
                 Subscription newSub = (Subscription)intent.getSerializableExtra("newSub");
                 items.add(newSub); // add new object to the array list and update the screen, and file
-                saveInFile();
+                saveInFile(); // save contents to file
+                setTotal(); // update total price
                 adapter.notifyDataSetChanged();
+
 
             }
             else if (requestCode == INIT_CODE_2 && resultCode == RESULT_OK){ // if we are viewing details of subscription
                 String code = intent.getStringExtra("code");
                 if (code.equals("0")){ // delete the subscription
-                    adapter.remove(adapter.getItem(index)); // get item that was clicked on and remove it
+                    items.remove(index); // remove item at the position it was clicked at
                     saveInFile();// save contents to file
+                    setTotal(); // update total price
                     adapter.notifyDataSetChanged(); // update the screen
+
                 }
                 else if (code.equals("1")){ //
                     Subscription newSub = (Subscription)intent.getSerializableExtra("editedSub");
                     items.set(index,newSub); // update the contents of the subscription at the correct position
                     saveInFile(); // save contents to file
+                    setTotal(); // update total price
                     adapter.notifyDataSetChanged();// update the screen
+
                 }
             }
     }

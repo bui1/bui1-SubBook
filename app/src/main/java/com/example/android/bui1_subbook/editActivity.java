@@ -97,7 +97,7 @@ public class editActivity extends AppCompatActivity {
                     return;
                 }
                 Double chargeValue = Double.parseDouble(inputCharge); // convert string input to double output
-                if (chargeValue < 0){ // input validate charge value
+                if (chargeValue <= 0){ // input validate charge value
                     Toast.makeText(getApplicationContext(),"Charge value should be positive ",Toast.LENGTH_SHORT)
                             .show();
                     return;
