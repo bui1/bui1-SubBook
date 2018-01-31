@@ -14,11 +14,14 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class editActivity extends AppCompatActivity {
-    // Purpose: Let the user see the details of the subscription object in a cleaner slate. They have an option to delete or edit the object.
-    // Design: It was better to have directly have the option to edit so the user doesn't have to switch between even more activities for this,
-    // then can click the button to confirm their option.
 
+/** Purpose: Let the user see the details of the subscription object in a cleaner slate.
+ * They have an option to delete or edit the object.
+ * Design: It was better to directly have the option to edit so the user doesn't have to switch between more activities for this,
+ * and then can click the button to confirm their option.
+ */
+
+public class EditActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,9 +29,6 @@ public class editActivity extends AppCompatActivity {
 
         final Intent intent = this.getIntent(); // get the intent that called this activity
         String sub = intent.getStringExtra("item"); // grab the subscription object the user clicked on previously
-
-
-        String[] parts = sub.split(","); // split the string into the subscription's attributes
 
 
         // define our views and buttons on screen
@@ -39,7 +39,9 @@ public class editActivity extends AppCompatActivity {
         Button changeBtn = (Button)findViewById(R.id.change);
         Button deleteBtn = (Button) findViewById(R.id.delete);
 
-        // place appropriate subscription contents int their respective text views
+
+        String[] parts = sub.split(","); // split the string into the subscription's attributes
+        // place appropriate subscription contents in their respective text views
         name.setText(parts[0]);
         date.setText(parts[1]);
         charge.setText(parts[2]);
@@ -59,7 +61,7 @@ public class editActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 intent.putExtra("deletion",intent.getStringExtra("item"));
-                intent.putExtra("code","0"); // letting the main activity know we want to delete object
+                intent.putExtra("code","0");                                  // let main activity know we want to delete object
                 setResult(RESULT_OK,intent);
                 finish();
             }
@@ -67,18 +69,17 @@ public class editActivity extends AppCompatActivity {
 
         changeBtn.setOnClickListener(new View.OnClickListener(){ // if user click the change subscription button
             public void onClick (View v) {
-                String nameValue = name.getText().toString().trim(); // grab name from edit text input
-                if (nameValue.length() > 20 || nameValue.length() < 1){  // validate the name input
+                String nameValue = name.getText().toString().trim();                      // grab name from edit text input
+                if (nameValue.length() > 20 || nameValue.length() < 1){                   // validate the name input
                     Toast.makeText(getApplicationContext(),"Name must be between 1 and 20 characters ",Toast.LENGTH_SHORT)
                             .show();
                     return;
                 }
 
-
                 // 2018-01-21
                 // https://stackoverflow.com/questions/9277747/android-simpledateformat-how-to-use-it
                 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd"); // date format we want
-                String dateValue = date.getText().toString().trim(); // grab date from edit text input
+                String dateValue = date.getText().toString().trim();                      // grab date from edit text input
                 dateFormat.setLenient(false);
 
                 try{ // validating user input date based on format we want
@@ -90,24 +91,24 @@ public class editActivity extends AppCompatActivity {
                     return;
                 }
 
-                String inputCharge = charge.getText().toString().trim(); // grab charge from edit text input
-                if (inputCharge.length() == 0){ // check if user did input a charge value
+                String inputCharge = charge.getText().toString().trim();                // grab charge from edit text input
+                if (inputCharge.length() == 0){                                         // check if user did input a charge value
                     Toast.makeText(getApplicationContext(),"Charge value cannot be blank ",Toast.LENGTH_SHORT)
                             .show();
                     return;
                 }
-                Double chargeValue = Double.parseDouble(inputCharge); // convert string input to double output
-                if (chargeValue <= 0){ // input validate charge value
+                Double chargeValue = Double.parseDouble(inputCharge);                   // convert string input to double output
+                if (chargeValue <= 0){                                                  // input validate charge value
                     Toast.makeText(getApplicationContext(),"Charge value should be positive ",Toast.LENGTH_SHORT)
                             .show();
                     return;
                 }
 
-                String commentValue = comment.getText().toString().trim(); // grab comment from edit text input
-                if (commentValue.length() == 0 || commentValue.length() <= 30){ // if comment is blank or is correctly inputted
+                String commentValue = comment.getText().toString().trim();              // grab comment from edit text input
+                if (commentValue.length() == 0 || commentValue.length() <= 30){         // if comment is blank or is correctly inputted
                     Subscription newSub = new Subscription(nameValue,dateValue,chargeValue,commentValue);
-                    intent.putExtra("code","1"); // let main activity know we edited the object
-                    intent.putExtra("editedSub", newSub); // store contents of new object for next activity
+                    intent.putExtra("code","1");                           // let main activity know we edited the object
+                    intent.putExtra("editedSub", newSub);                        // store contents of new object for next activity
                     setResult(RESULT_OK,intent);
                     finish();
                 }
@@ -116,12 +117,7 @@ public class editActivity extends AppCompatActivity {
                             .show();
                     return;
                 }
-
-
             }
         });
-
    }
-
-
 }

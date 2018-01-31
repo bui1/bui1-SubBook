@@ -10,18 +10,18 @@
         android:layout_width="368dp"
         android:layout_height="495dp"
         android:layout_marginBottom="8dp"
+        android:gravity="top"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0">
+        app:layout_constraintVertical_bias="0.0">
 
         <ListView
-            android:id="@+id/sub_list"
+            android:id="@+id/subList"
             android:layout_width="match_parent"
-            android:layout_height="389dp"></ListView>
+            android:layout_height="425dp" />
 
         <Button
             android:id="@+id/goToAdd"
