@@ -12,12 +12,19 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class AddSub extends AppCompatActivity {
-    /** Class: Purpose is to create a Subscription object based on what the user inputs
-     * Design: Took care of input validation by using restricted text views such as the user
-     * only being able to input numbers for charge and date. Then had conditionals to check for proper format.
-     */
 
+/** Class: Purpose is to create a Subscription object based on what the user inputs
+ * Design: Took care of input validation by using restricted text views such as the user
+ * only being able to input numbers for charge and date. Then had conditionals to check for proper format.
+ */
+
+/*
+ * All Toast Widget code citation:
+ * Template From Lab 3 Code on GSON
+ * 2018-01-26
+ */
+
+public class AddSub extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,7 +69,7 @@ public class AddSub extends AppCompatActivity {
                     return;
                 }
                 Double chargeValue = Double.parseDouble(inputCharge);               // convert string input to double output
-                if (chargeValue <= 0){                                              // input validate charge value
+                if (chargeValue < 0){                                              // input validate charge value
                     Toast.makeText(getApplicationContext(),"Charge value should be positive ",Toast.LENGTH_SHORT)
                             .show();
                     return;
@@ -72,6 +79,11 @@ public class AddSub extends AppCompatActivity {
                 if (commentValue.length() == 0 || commentValue.length() <= 30){     // if comment is blank or is correctly inputted
                     Subscription newSub = new Subscription(nameValue,dateValue,chargeValue,commentValue);
                     intent.putExtra("newSub", newSub);                        // store new object for the next activity
+
+                    /* Intents and Transferring between activities template for RESULT_OK
+                     * https://developer.android.com/training/basics/intents/result.html
+                     * 2018-01-21
+                     */
                     setResult(RESULT_OK,intent);
                     finish();
                 }

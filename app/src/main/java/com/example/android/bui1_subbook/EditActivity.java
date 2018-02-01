@@ -21,6 +21,12 @@ import java.util.Date;
  * and then can click the button to confirm their option.
  */
 
+/*
+ * All Toast Widget code citation:
+ * Template From Lab 3 Code on GSON
+ * 2018-01-26
+ */
+
 public class EditActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,7 +104,7 @@ public class EditActivity extends AppCompatActivity {
                     return;
                 }
                 Double chargeValue = Double.parseDouble(inputCharge);                   // convert string input to double output
-                if (chargeValue <= 0){                                                  // input validate charge value
+                if (chargeValue < 0){                                                  // input validate charge value
                     Toast.makeText(getApplicationContext(),"Charge value should be positive ",Toast.LENGTH_SHORT)
                             .show();
                     return;
@@ -109,6 +115,11 @@ public class EditActivity extends AppCompatActivity {
                     Subscription newSub = new Subscription(nameValue,dateValue,chargeValue,commentValue);
                     intent.putExtra("code","1");                           // let main activity know we edited the object
                     intent.putExtra("editedSub", newSub);                        // store contents of new object for next activity
+
+                    /* Intents and Transferring between activities template for RESULT_OK
+                     * https://developer.android.com/training/basics/intents/result.html
+                     * 2018-01-21
+                     */
                     setResult(RESULT_OK,intent);
                     finish();
                 }

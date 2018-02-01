@@ -32,13 +32,11 @@ import com.google.gson.reflect.TypeToken;
 /** Class: Show subscription contents on the screen for the user.
  * Design: Simple design that contains a list view for the objects and an add button if the user wishes to create another subscription
  * I also decided that it was intuitive for the user to see a subscription details by immediately clicking on the item itself
- *
- * Toast Widget code citation for all classes:
- * Template From Lab 3 Code on GSON
- * 2018-01-26
  */
+
+
 public class MainActivity extends AppCompatActivity {
-    private final int ADD_CODE = 1;                        // code for moving to addSub activity
+    private final int ADD_CODE = 1;                         // code for moving to addSub activity
     private final int DETAIL_CODE = 2;                      // code for moving to editSub activity
     private final String FILENAME = "subs.sav";             // file for saving subscriptions to
 
@@ -71,6 +69,11 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        /* Intents and Transferring between activities template for startActivityOnResult,
+         * this is for both onCLickListeners for the Listview and button
+         * https://developer.android.com/training/basics/intents/result.html
+         * 2018-01-21
+         */
 
         Button addBtn = (Button)findViewById(R.id.goToAdd); // define add button
         addBtn.setOnClickListener(new View.OnClickListener(){  // if clicked, go to add a new subscription activity
@@ -94,6 +97,7 @@ public class MainActivity extends AppCompatActivity {
         price.setText(strPrice); // set textview content to total price
     }
 
+
     // Function that is called when the activity starts up
     // Template From Lab 3 Code on GSON
     // 2018-01-26
@@ -106,7 +110,12 @@ public class MainActivity extends AppCompatActivity {
         setTotal(); // set total price
     }
 
-    // Function that grabs results from a previously called activity
+    /* Function that grabs results from a previously called activity
+     * Intents and Transferring between activities template for onActivityResult
+     * https://developer.android.com/training/basics/intents/result.html
+     * 2018-01-21
+     */
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent intent){
         super.onActivityResult(requestCode, resultCode, intent);
