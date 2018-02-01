@@ -1,0 +1,4 @@
+#Thu Feb 01 10:53:40 MST 2018
+base.0=/Users/MonicaB/AndroidStudioProjects/bui1-SubBook/app/build/intermediates/transforms/dexMerger/debug/81
+renamed.0=classes.dex
+file.0=/Users/MonicaB/AndroidStudioProjects/bui1-SubBook/app/build/intermediates/transforms/dexMerger/debug/81/classes.dex
