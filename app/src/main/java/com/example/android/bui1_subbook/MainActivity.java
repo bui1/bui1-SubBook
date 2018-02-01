@@ -34,7 +34,6 @@ import com.google.gson.reflect.TypeToken;
  * I also decided that it was intuitive for the user to see a subscription details by immediately clicking on the item itself
  */
 
-
 public class MainActivity extends AppCompatActivity {
     private final int ADD_CODE = 1;                         // code for moving to addSub activity
     private final int DETAIL_CODE = 2;                      // code for moving to editSub activity
